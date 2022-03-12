@@ -1,3 +1,3 @@
 # shellf
 
-Utility bash scripts
+Bash library and utility commands
