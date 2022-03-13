@@ -19,10 +19,7 @@ export readonly BASH_STDERR_FILE_DESCRIPTOR=2
 #   0 if operation succeeded, non-zero otherwise
 #######################################
 stdio::print() {
-    if ! echo "$@" &> "${BASH_STOUT_FILE_DESCRIPTOR}"; then 
-        return 1
-    fi
-    return 0
+    echo "$@" &> "${BASH_STOUT_FILE_DESCRIPTOR}"
 }
 
 #######################################
@@ -38,8 +35,5 @@ stdio::print() {
 #   0 if operation succeeded, non-zero otherwise
 #######################################
 stdio::printerr() {
-    if ! echo "$@" &> "${BASH_STDERR_FILE_DESCRIPTOR}"; then 
-        return 1
-    fi
-    return 0
+    echo "$@" &> "${BASH_STDERR_FILE_DESCRIPTOR}"
 }
