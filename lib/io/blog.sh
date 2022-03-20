@@ -1,11 +1,12 @@
 #! /bin/bash
 #
-# Bash library that supplies standard I/O utilities.
+# Bash library that supplies logging utilities.
+# "blog" stands for Bash log
 #######################################
 
-export readonly BASH_STDIN_FILE_DESCRIPTOR=0
-export readonly BASH_STDOUT_FILE_DESCRIPTOR=1
-export readonly BASH_STDERR_FILE_DESCRIPTOR=2
+# readonly BASH_STDIN_FILE_HANDLE=0
+# readonly BASH_STDOUT_FILE_HANDLE=1
+# readonly BASH_STDERR_FILE_HANDLE=2
 
 readonly ERROR="ERROR:"
 readonly INFO="INFO:"
@@ -16,15 +17,15 @@ readonly WARNING="WARNING:"
 # The function appends the accepted arguments to stdout.
 #
 # Globals:
-#   BASH_STOUT_FILE_DESCRIPTOR
+#   None
 # Arguments:
-#   A list of data elements to write to stdout
+#   A list of data elements to log to stdout
 # Outputs:
 #   Appends the accepted arguments to stdout
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-stdio::print() {
+blog::log() {
     for val in "$@"; do
         echo "${val}"
     done
@@ -35,15 +36,14 @@ stdio::print() {
 #
 # Globals:
 #   ERROR
-#   BASH_STDOUT_FILE_DESCRIPTOR
 # Arguments:
-#   A list of error data elements to write to stdout
+#   A list of error data elements to log to stdout
 # Outputs:
 #   Appends the accepted arguments to stdout
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-stdio::printerr() {
+blog::err() {
     for val in "$@"; do
         echo "${ERROR} ${val}"
     done
@@ -54,15 +54,14 @@ stdio::printerr() {
 #
 # Globals:
 #   INFO
-#   BASH_STDOUT_FILE_DESCRIPTOR
 # Arguments:
-#   A list of info data elements to write to stdout
+#   A list of info data elements to log to stdout
 # Outputs:
 #   Appends the accepted arguments to stdout
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-stdio::info() {
+blog::info() {
     for val in "$@"; do
         echo "${INFO} ${val}"
     done
@@ -73,15 +72,14 @@ stdio::info() {
 #
 # Globals:
 #   WARNING
-#   BASH_STDOUT_FILE_DESCRIPTOR
 # Arguments:
-#   A list of warning data elements to write to stdout
+#   A list of warning data elements to log to stdout
 # Outputs:
 #   Appends the accepted arguments to stdout
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-stdio::warn() {
+blog::warn() {
     for val in "$@"; do
         echo "${WARNING} ${val}"
     done
@@ -92,15 +90,14 @@ stdio::warn() {
 #
 # Globals:
 #   DEBUG
-#   BASH_STDOUT_FILE_DESCRIPTOR
 # Arguments:
-#   A list of debug data elements to write to stdout
+#   A list of debug data elements to log to stdout
 # Outputs:
 #   Appends the accepted arguments to stdout
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-stdio::debug() {
+blog::debug() {
     for val in "$@"; do
         echo "${DEBUG} ${val}"
     done
