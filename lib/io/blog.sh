@@ -8,10 +8,10 @@
 # readonly BASH_STDOUT_FILE_HANDLE=1
 # readonly BASH_STDERR_FILE_HANDLE=2
 
-readonly ERROR="ERROR:"
-readonly INFO="INFO:"
-readonly DEBUG="DEBUG::"
-readonly WARNING="WARNING:"
+readonly ERROR="[ERROR]:"
+readonly INFO="[INFO]:"
+readonly DEBUG="[DEBUG]:"
+readonly WARNING="[WARNING]:"
 
 #######################################
 # The function appends the accepted arguments to stdout.

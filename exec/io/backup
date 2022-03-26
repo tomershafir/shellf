@@ -41,16 +41,16 @@ main() {
     blog::info "Target directory: ${sink}"
 
     for source in "${sources[@]}"; do
-        blog::info "Backing up ${source}..."
+        blog::log "Backing up ${source}..."
 
         bu_filename="$( tr "/" "_" <<<"${source}" )_backup_$(date +%Y-%m-%d_%H%M%S).tar.gz"
         local readonly bu_path="${sink}/${bu_filename}"
         tar -cvzf "${bu_path}" "${source}" 2>/dev/null
 
-        blog::info "Created backup ${bu_path}"
+        blog::log "Created backup ${bu_path}"
     done
 
-    blog::info "Backup succeeded."
+    blog::log "Backup succeeded."
 }
 
 main "$@"
