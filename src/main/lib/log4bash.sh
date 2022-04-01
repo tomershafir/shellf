@@ -1,8 +1,10 @@
 #! /bin/bash
 #
-# Bash library that supplies logging utilities.
-# "blog" stands for Bash log
+# Logging utilities for Bash.
 #######################################
+
+# shellcheck source=/Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/colors.sh
+source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/colors.sh
 
 # readonly BASH_STDIN_FILE_HANDLE=0
 # readonly BASH_STDOUT_FILE_HANDLE=1
@@ -45,7 +47,7 @@ blog::log() {
 #######################################
 blog::err() {
     for val in "$@"; do
-        echo "${ERROR} ${val}"
+        echo "${RED_FG}${ERROR} ${val}${WHITE_FG}"
     done
 }
 
@@ -63,7 +65,7 @@ blog::err() {
 #######################################
 blog::info() {
     for val in "$@"; do
-        echo "${INFO} ${val}"
+        echo "${GREEN_FG}${INFO} ${val}${WHITE_FG}"
     done
 }
 
@@ -81,7 +83,7 @@ blog::info() {
 #######################################
 blog::warn() {
     for val in "$@"; do
-        echo "${WARNING} ${val}"
+        echo "${YELLOW_FG}${WARNING} ${val}${WHITE_FG}"
     done
 }
 
@@ -99,6 +101,6 @@ blog::warn() {
 #######################################
 blog::debug() {
     for val in "$@"; do
-        echo "${DEBUG} ${val}"
+        echo "${BLUE_FG}${DEBUG} ${val}${WHITE_FG}"
     done
 }

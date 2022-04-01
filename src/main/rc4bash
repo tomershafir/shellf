@@ -1,0 +1,34 @@
+#! /bin/bash
+# 
+# An executable Bash script that manipulate startup and shutdown behaviour for Bash.
+#
+# Globals:
+#   RC_FILES
+# Arguments:
+#   File pathnames or strings from which content will be supplied to chosen by options rc files
+# Outputs:
+#   Appends to startup and shutdown files
+#   Streams log data to stdout 
+# Returns:
+#   0 if operation succeed, non-zero otherwise
+#######################################
+
+# TODO: support deletion with --delete option; update rc4bash file desc; allow specific targets and all targets operation
+# TODO: support read with --read option; update rc4bash file desc; allow specific targets and all targets operation; make unreadable files readable if possible
+
+# shellcheck source=/Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
+source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
+
+readonly RC_PATH_TO_OPT_ASSOCIATIVE_ARR = (["--bashprofile"]="~/.bash_profile", ["--etcprofile"]="/etc/profile", ["--bashrc"]="~/.bashrc", ["--profile"]="~/.profile", ["--bashlogin"]="~/.bash_login", ["--bashlogout"]="~/.bash_logout")
+
+main() {
+  
+}
+
+main "$@"
+
+# what is input? how i know its valid bash?
+# i will be offensive
+# input may be string or filename - if file name do copy otherwise append string
+
+# create or update files to be readable files
