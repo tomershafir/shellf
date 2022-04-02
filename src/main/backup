@@ -4,6 +4,8 @@
 #
 # Globals:
 #   None
+# Options:
+#   None
 # Arguments:
 #   Absolute or relative path to sink directory
 #   Absolute or relative path list to source directories
@@ -18,41 +20,34 @@
 source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
 
 main() {
-  # argc validation
   if [ "$#" -lt 2 ]; then
-    blog::err "Missing arguments."
+    log4bash::err "Missing arguments."
     exit 1
   fi
 
-  # argv validation
   local readonly sink="$1"
   local readonly sources=("${@:2:(( $# + 1 ))}")
 
   if [[ ! -d "${sink}" ]]; then
-    blog::err "No such directory: ${sink}"
+    log4bash::err "No such directory: '${sink}'"
     exit 1
   fi
 
   for source in "${sources[@]}"; do
     if [[ ! -d "${source}" ]]; then 
-      blog::err "No such directory: ${source}"
+      log4bash::err "No such directory: '${source}'"
       exit 1
     fi
   done 
 
-  blog::info "Target directory: ${sink}"
+  log4bash::info "Target directory: '${sink}'"
 
   for source in "${sources[@]}"; do
-    blog::log "Backing up ${source}..."
-
     bu_filename="$( tr "/" "_" <<<"${source}" )_backup_$(date +%Y-%m-%d_%H%M%S).tar.gz"
     local readonly bu_path="${sink}/${bu_filename}"
     tar -cvzf "${bu_path}" "${source}" 2>/dev/null
-
-    blog::log "Created backup ${bu_path}"
+    log4bash::log "Created backup '${bu_path}' for '${source}'"
   done
-
-  blog::log "Backup succeeded."
 }
 
 main "$@"

@@ -1,34 +1,44 @@
 #! /bin/bash
 # 
-# An executable Bash script that manipulate startup and shutdown behaviour for Bash.
+# An executable Bash script that creates or appends to all startup and shutdown files for Bash.
+# Partial failure is allowed.
 #
 # Globals:
 #   RC_FILES
+# Options:
+#   None
 # Arguments:
-#   File pathnames or strings from which content will be supplied to chosen by options rc files
+#   File pathnames from which content will be supplied to chosen by options rc files
 # Outputs:
-#   Appends to startup and shutdown files
-#   Streams log data to stdout 
+#   Appends to startup and shutdown files. If files doesn't exist new files are created
+#   Streams log data to stdout
 # Returns:
 #   0 if operation succeed, non-zero otherwise
 #######################################
 
-# TODO: support deletion with --delete option; update rc4bash file desc; allow specific targets and all targets operation
-# TODO: support read with --read option; update rc4bash file desc; allow specific targets and all targets operation; make unreadable files readable if possible
-
 # shellcheck source=/Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
 source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
 
-readonly RC_PATH_TO_OPT_ASSOCIATIVE_ARR = (["--bashprofile"]="~/.bash_profile", ["--etcprofile"]="/etc/profile", ["--bashrc"]="~/.bashrc", ["--profile"]="~/.profile", ["--bashlogin"]="~/.bash_login", ["--bashlogout"]="~/.bash_logout")
+readonly RC_FILES=("${HOME}/.bash_profile" "/etc/profile" "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.bash_login" "${HOME}/.bash_logout")
 
 main() {
+  log4bash::warn "Partial failure is allowed"
+
+  if [ "$#" -lt 1 ]; then
+    log4bash::err "Missing arguments."
+    exit 1
+  fi
   
+  for v in "$@"; do
+    if [[ -f "${v}" ]]; then
+        for rc_file in "${RC_FILES[@]}"; do
+          cat "${v}" >> "${rc_file}"
+          log4bash::log "Appended '${v}' to '${rc_file}'"
+        done
+    else
+      log4bash::err "No such file: '${v}'"
+    fi
+  done 
 }
 
 main "$@"
-
-# what is input? how i know its valid bash?
-# i will be offensive
-# input may be string or filename - if file name do copy otherwise append string
-
-# create or update files to be readable files

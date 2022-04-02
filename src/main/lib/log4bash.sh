@@ -3,12 +3,25 @@
 # Logging utilities for Bash.
 #######################################
 
-# shellcheck source=/Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/colors.sh
-source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/colors.sh
+# file descriptor of stdin
+export readonly BASH_STDIN_FILE_HANDLE=0
 
-# readonly BASH_STDIN_FILE_HANDLE=0
-# readonly BASH_STDOUT_FILE_HANDLE=1
-# readonly BASH_STDERR_FILE_HANDLE=2
+# file descriptor of stdout
+export readonly BASH_STDOUT_FILE_HANDLE=1
+
+# file descriptor of stderr
+export readonly BASH_STDERR_FILE_HANDLE=2
+
+RED_FG="$(tput setaf 1)"
+readonly RED_FG
+GREEN_FG="$(tput setaf 2)"
+readonly GREEN_FG
+YELLOW_FG="$(tput setaf 3)"
+readonly YELLOW_FG
+BLUE_FG="$(tput setaf 4)"
+readonly BLUE_FG
+WHITE_FG="$(tput setaf 7)"
+readonly WHITE_FG
 
 readonly ERROR="[ERROR]:"
 readonly INFO="[INFO]:"
@@ -27,9 +40,9 @@ readonly WARNING="[WARNING]:"
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-blog::log() {
+log4bash::log() {
     for val in "$@"; do
-        echo "${val}"
+        printf "%s\n" "${val}"
     done
 }
 
@@ -45,9 +58,9 @@ blog::log() {
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-blog::err() {
+log4bash::err() {
     for val in "$@"; do
-        echo "${RED_FG}${ERROR} ${val}${WHITE_FG}"
+        printf "%s\n" "${RED_FG}${ERROR} ${val}${WHITE_FG}"
     done
 }
 
@@ -63,9 +76,9 @@ blog::err() {
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-blog::info() {
+log4bash::info() {
     for val in "$@"; do
-        echo "${GREEN_FG}${INFO} ${val}${WHITE_FG}"
+        printf "%s\n" "${GREEN_FG}${INFO} ${val}${WHITE_FG}"
     done
 }
 
@@ -81,9 +94,9 @@ blog::info() {
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-blog::warn() {
+log4bash::warn() {
     for val in "$@"; do
-        echo "${YELLOW_FG}${WARNING} ${val}${WHITE_FG}"
+        printf "%s\n" "${YELLOW_FG}${WARNING} ${val}${WHITE_FG}"
     done
 }
 
@@ -99,8 +112,8 @@ blog::warn() {
 # Returns:
 #   0 if operation succeeded, non-zero otherwise
 #######################################
-blog::debug() {
+log4bash::debug() {
     for val in "$@"; do
-        echo "${BLUE_FG}${DEBUG} ${val}${WHITE_FG}"
+        printf "%s\n" "${BLUE_FG}${DEBUG} ${val}${WHITE_FG}"
     done
 }
