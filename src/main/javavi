@@ -1,0 +1,17 @@
+#! /bin/bash
+#
+# Executable virtual interpreter that may be used in the shebang line to execute Java source files by the kernel's program loader.
+# 
+# Globals:
+#
+# Options:
+#
+# Arguments:
+# 
+# Outputs:
+#
+# Returns:
+# 
+# 
+# javavi stands for "java virtual interpreter"
+#######################################
