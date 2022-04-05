@@ -3,58 +3,6 @@
 # Executable virtual interpreter that may be used to execute Java source files.
 # Partial failure is allowed.
 # Make sure you have javac and java installed and in $PATH.
-# 
-# Globals:
-#   JVM_BYTECODE_FILE_EXT
-# Options:
-#   None
-# Arguments:
-#   Java source file pathnames to execute (must have main() function)
-# Outputs:
-#   Streams log data to stdout
-# Returns:
-#   0 if operation succeed, non-zero otherwise
 #
 # javavi stands for "java virtual interpreter"
 #######################################
-
-# shellcheck source=/Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
-source /Users/tomersha/Desktop/Tomer/cs/projects/shellf/src/main/lib/log4bash.sh
-
-readonly JVM_BYTECODE_FILE_EXT=".class"
-
-main() {
-  log4bash::warn "Partial failure is allowed"
-
-  if [[ "$#" -lt 1 ]]; then 
-    log4bash::err "Missing arguments."
-    exit 1
-  fi
-
-  local readonly pathnames=("${@:1:(( $# + 1 ))}")
-  for p in "${pathnames[@]}"; do
-    if [[ -f "${p}" ]]; then
-      local dirname
-      dirname="$(dirname -- "$p")"
-      cd "${dirname}" || exit 1
-      
-      local filename="${p##*/}"
-      local classname="${filename%.*}"
-
-      javac "${p}" || exit 1
-
-      local exitcode
-      if ! java "${classname}"; then
-        log4bash::log "Failed to run Java program: ${p}"
-      else
-        log4bash::log "Java program ran successfully: '${p}'"
-      fi
-      
-      rm "./${classname}${JVM_BYTECODE_FILE_EXT}" || exit 1
-    else
-      log4bash::err "No such file: '${p}'"
-    fi
-  done
-}
-
-main "$@"
