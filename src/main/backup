@@ -43,7 +43,7 @@ main() {
   log4bash::info "Target directory: '${sink}'"
 
   for source in "${sources[@]}"; do
-    bu_filename="$( tr "/" "_" <<<"${source}" )_backup_$(date +%Y-%m-%d_%H%M%S).tar.gz"
+    bu_filename="$( tr "/" "_" <<< "${source}" )_backup_$(date +%Y-%m-%d_%H%M%S).tar.gz"
     local readonly bu_path="${sink}/${bu_filename}"
     tar -cvzf "${bu_path}" "${source}" 2>/dev/null
     log4bash::log "Created backup '${bu_path}' for '${source}'"
