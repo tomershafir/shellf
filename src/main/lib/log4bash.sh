@@ -42,7 +42,7 @@ readonly WARNING="[WARNING]:"
 #######################################
 log4bash::log() {
     for val in "$@"; do
-        printf "%s\n" "${val}"
+        printf "%s\n" "$(date +"%T") ${val}"
     done
 }
 
@@ -60,7 +60,7 @@ log4bash::log() {
 #######################################
 log4bash::err() {
     for val in "$@"; do
-        printf "%s\n" "${RED_FG}${ERROR} ${val}${WHITE_FG}"
+        printf "%s\n" "${RED_FG}$(date +"%T") ${ERROR} ${val}${WHITE_FG}"
     done
 }
 
@@ -78,7 +78,7 @@ log4bash::err() {
 #######################################
 log4bash::info() {
     for val in "$@"; do
-        printf "%s\n" "${GREEN_FG}${INFO} ${val}${WHITE_FG}"
+        printf "%s\n" "${GREEN_FG}$(date +"%T") ${INFO} ${val}${WHITE_FG}"
     done
 }
 
@@ -96,7 +96,7 @@ log4bash::info() {
 #######################################
 log4bash::warn() {
     for val in "$@"; do
-        printf "%s\n" "${YELLOW_FG}${WARNING} ${val}${WHITE_FG}"
+        printf "%s\n" "${YELLOW_FG}$(date +"%T") ${WARNING} ${val}${WHITE_FG}"
     done
 }
 
@@ -114,6 +114,6 @@ log4bash::warn() {
 #######################################
 log4bash::debug() {
     for val in "$@"; do
-        printf "%s\n" "${BLUE_FG}${DEBUG} ${val}${WHITE_FG}"
+        printf "%s\n" "${BLUE_FG}$(date +"%T") ${DEBUG} ${val}${WHITE_FG}"
     done
 }
