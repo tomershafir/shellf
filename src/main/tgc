@@ -1,3 +1,5 @@
 # tgc stands for temp garbage collect (command so verb and not collector)
 # discards gerbage in $TMPDIR, /tmp, /var/tmp 
 # there are some files that shouldnt be deleted in order to make processes work fine
+
+# maybe trash gc because temp areas may contain necessary files
